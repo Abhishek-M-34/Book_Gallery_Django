@@ -1,0 +1,97 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+    Add Book - Book Gallery
+{% endblock %}
+
+{% block content %}
+
+<section class="form-page">
+
+    <div class="container">
+
+        <div class="form-wrapper">
+
+            <!-- INTRO -->
+
+            <div class="form-intro">
+
+                <div class="form-icon">
+                    📖
+                </div>
+
+                <div class="form-eyebrow">
+                    BOOK GALLERY
+                </div>
+
+                <h1>
+                    Share a book
+                    <span>with others.</span>
+                </h1>
+
+                <p>
+                    Add a book to your collection and make it
+                    available for others in the gallery.
+                </p>
+
+            </div>
+
+
+            <!-- FORM CARD -->
+
+            <div class="form-card">
+
+                <div class="form-card-header">
+
+                    <h2>
+                        Add Book for Sale
+                    </h2>
+
+                    <p>
+                        Enter the details of your book below.
+                    </p>
+
+                </div>
+
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="book-form">
+
+                        {{ form.as_p }}
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            class="form-submit"
+                        >
+                            Add Book
+                            <span>→</span>
+                        </button>
+
+                        <a
+                            href="{% url 'home' %}"
+                            class="form-cancel"
+                        >
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

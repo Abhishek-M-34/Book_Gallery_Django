@@ -1,0 +1,118 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+    Login - Book Gallery
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="container">
+
+        <div class="auth-wrapper">
+
+            <!-- LEFT SIDE -->
+
+            <div class="auth-intro">
+
+                <div class="auth-book-icon">
+                    📖
+                </div>
+
+                <div class="auth-eyebrow">
+                    WELCOME BACK
+                </div>
+
+                <h1>
+                    Continue your
+                    <span>reading journey.</span>
+                </h1>
+
+                <p>
+                    Sign in to your Book Gallery account
+                    and continue exploring books shared
+                    by the community.
+                </p>
+
+                <div class="auth-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </div>
+
+
+            <!-- LOGIN CARD -->
+
+            <div class="auth-card">
+
+                <div class="auth-card-header">
+
+                    <h2>
+                        Welcome Back
+                    </h2>
+
+                    <p>
+                        Sign in to your account
+                    </p>
+
+                </div>
+
+
+                {% if form.errors %}
+
+                    <div class="auth-error">
+                        <strong>Login failed</strong>
+                        <span>
+                            Username or password is incorrect.
+                        </span>
+                    </div>
+
+                {% endif %}
+
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="auth-form">
+
+                        {{ form.as_p }}
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="auth-submit"
+                    >
+                        Login
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+
+                <div class="auth-switch">
+
+                    <span>
+                        Don't have an account?
+                    </span>
+
+                    <a href="{% url 'register' %}">
+                        Create one
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

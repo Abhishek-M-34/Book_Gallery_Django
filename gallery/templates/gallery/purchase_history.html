@@ -1,0 +1,198 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+    My Purchases - Book Gallery
+{% endblock %}
+
+{% block content %}
+
+<section class="purchase-page">
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+
+        <div class="purchase-header">
+
+            <div>
+
+                <div class="purchase-eyebrow">
+                    MY ACTIVITY
+                </div>
+
+                <h1>
+                    My Purchases
+                </h1>
+
+                <p>
+                    Keep track of the books you have requested.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'book_feed' %}"
+                class="browse-books-btn"
+            >
+                Browse Books
+                <span>→</span>
+            </a>
+
+        </div>
+
+
+        <!-- PURCHASES -->
+
+        {% if orders %}
+
+            <div class="purchase-list">
+
+                {% for order in orders %}
+
+                    <div class="purchase-card">
+
+                        <!-- BOOK -->
+
+                        <div class="purchase-book">
+
+                            <div class="purchase-book-cover">
+
+                                <div class="purchase-book-spine"></div>
+
+                                <span>
+                                    BOOK
+                                </span>
+
+                                <h2>
+                                    {{ order.book.title }}
+                                </h2>
+
+                            </div>
+
+
+                            <div class="purchase-book-info">
+
+                                <h2>
+                                    {{ order.book.title }}
+                                </h2>
+
+                                <p>
+                                    Seller:
+                                    <strong>
+                                        {{ order.book.seller.username }}
+                                    </strong>
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PRICE -->
+
+                        <div class="purchase-detail">
+
+                            <span>
+                                PRICE
+                            </span>
+
+                            <strong>
+                                ₹{{ order.book.price }}
+                            </strong>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div class="purchase-detail">
+
+                            <span>
+                                STATUS
+                            </span>
+
+                            {% if order.status == 'Pending' %}
+
+                                <strong class="purchase-status pending">
+                                    Pending
+                                </strong>
+
+                            {% elif order.status == 'Approved' %}
+
+                                <strong class="purchase-status approved">
+                                    Approved
+                                </strong>
+
+                            {% elif order.status == 'Rejected' %}
+
+                                <strong class="purchase-status rejected">
+                                    Rejected
+                                </strong>
+
+                            {% else %}
+
+                                <strong class="purchase-status">
+                                    {{ order.status }}
+                                </strong>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- DATE -->
+
+                        <div class="purchase-detail purchase-date">
+
+                            <span>
+                                REQUESTED
+                            </span>
+
+                            <strong>
+                                {{ order.created_at|date:"d M Y" }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <!-- EMPTY STATE -->
+
+            <div class="purchase-empty">
+
+                <div class="purchase-empty-icon">
+                    📚
+                </div>
+
+                <h2>
+                    No purchases yet.
+                </h2>
+
+                <p>
+                    You haven't requested to purchase any books yet.
+                    Browse the gallery to find something you like.
+                </p>
+
+                <a
+                    href="{% url 'book_feed' %}"
+                    class="browse-empty-btn"
+                >
+                    Browse Books
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,251 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+    Browse Books - Book Gallery
+{% endblock %}
+
+{% block content %}
+
+<section class="books-page">
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+
+        <div class="books-header">
+
+            <div>
+
+                <div class="books-eyebrow">
+                    BOOK GALLERY
+                </div>
+
+                <h1>
+                    Discover a book.
+                </h1>
+
+                <p>
+                    Explore books shared by our community.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'add_book' %}"
+                class="add-book-btn"
+            >
+                <span>+</span>
+                Add Book
+            </a>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="book-search-wrapper">
+
+            <form method="GET" class="book-search">
+
+                <div class="search-icon">
+                    ⌕
+                </div>
+
+                <input
+                    type="text"
+                    name="q"
+                    value="{{ query }}"
+                    placeholder="Search books by title..."
+                >
+
+                <button type="submit">
+                    Search
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- SEARCH RESULT MESSAGE -->
+
+        {% if query %}
+
+            <div class="search-result-text">
+
+                Showing results for
+                <strong>"{{ query }}"</strong>
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- BOOKS -->
+
+        {% if books %}
+
+            <div class="books-grid">
+
+                {% for book in books %}
+
+                    <article class="book-item">
+
+                        <!-- BOOK COVER -->
+
+                        <div class="book-cover">
+
+                            <div class="book-spine"></div>
+
+                            <div class="book-cover-content">
+
+                                <small>
+                                    BOOK GALLERY
+                                </small>
+
+                                <h2>
+                                    {{ book.title }}
+                                </h2>
+
+                                <div class="cover-line"></div>
+
+                                <span>
+                                    {{ book.seller.username }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- BOOK INFORMATION -->
+
+                        <div class="book-information">
+
+                            <h2>
+                                {{ book.title }}
+                            </h2>
+
+                            <p class="book-description">
+                                {{ book.description }}
+                            </p>
+
+
+                            <div class="book-meta">
+
+                                <div>
+
+                                    <span class="meta-label">
+                                        PRICE
+                                    </span>
+
+                                    <strong>
+                                        ₹{{ book.price }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="seller-info">
+
+                                    <span class="meta-label">
+                                        LISTED BY
+                                    </span>
+
+                                    <strong>
+                                        {{ book.seller.username }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="book-action">
+
+                                {% if book.seller != request.user %}
+
+                                    <a
+                                        href="{% url 'request_purchase' book.id %}"
+                                        class="request-btn"
+                                    >
+                                        Request to Buy
+                                        <span>→</span>
+                                    </a>
+
+                                {% else %}
+
+                                    <span class="own-book">
+                                        Your Book
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <!-- EMPTY STATE -->
+
+            <div class="empty-books">
+
+                <div class="empty-icon">
+                    📚
+                </div>
+
+                {% if query %}
+
+                    <h2>
+                        No books found.
+                    </h2>
+
+                    <p>
+                        We couldn't find any books matching
+                        "{{ query }}".
+                    </p>
+
+                    <a
+                        href="{% url 'book_feed' %}"
+                        class="clear-search-btn"
+                    >
+                        View All Books
+                    </a>
+
+                {% else %}
+
+                    <h2>
+                        No books yet.
+                    </h2>
+
+                    <p>
+                        Be the first person to add a book
+                        to the gallery.
+                    </p>
+
+                    <a
+                        href="{% url 'add_book' %}"
+                        class="clear-search-btn"
+                    >
+                        Add the First Book
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

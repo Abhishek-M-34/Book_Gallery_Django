@@ -1,0 +1,449 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+    Home - Book Gallery
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-page">
+
+    <div class="container">
+
+        <!-- =================================================
+             WELCOME HEADER
+             ================================================= -->
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <div class="dashboard-eyebrow">
+                    MY BOOK GALLERY
+                </div>
+
+                <h1>
+                    Welcome back,
+                    <span>{{ request.user.username }}</span>
+                </h1>
+
+                <p>
+                    Manage your books and purchase requests
+                    from your dashboard.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'add_book' %}"
+                class="dashboard-add-btn"
+            >
+                <span>+</span>
+                Add Book
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             PROFILE
+             ================================================= -->
+
+        <div class="profile-card">
+
+            <div class="profile-heading">
+
+                <div class="profile-avatar">
+                    {{ request.user.username|first|upper }}
+                </div>
+
+                <div>
+                    <h2>
+                        My Profile
+                    </h2>
+
+                    <p>
+                        Your account information
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="profile-details">
+
+                <div class="profile-detail">
+
+                    <span>
+                        USERNAME
+                    </span>
+
+                    <strong>
+                        {{ request.user.username }}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-detail">
+
+                    <span>
+                        EMAIL
+                    </span>
+
+                    <strong>
+                        {{ request.user.email|default:"Not provided" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-detail">
+
+                    <span>
+                        ADDRESS
+                    </span>
+
+                    <strong>
+                        {{ profile.address|default:"Not provided" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-detail">
+
+                    <span>
+                        PHONE
+                    </span>
+
+                    <strong>
+                        {{ profile.phone_number|default:"Not provided" }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SELLING BOOKS
+             ================================================= -->
+
+        <div class="dashboard-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <div class="section-eyebrow">
+                        YOUR LISTINGS
+                    </div>
+
+                    <h2>
+                        My Selling Books
+                    </h2>
+
+                </div>
+
+                <span class="section-count">
+                    {{ books|length }} book{{ books|length|pluralize }}
+                </span>
+
+            </div>
+
+
+            {% if books %}
+
+                <div class="dashboard-books-grid">
+
+                    {% for book in books %}
+
+                        <div class="dashboard-book-card">
+
+                            <!-- Book visual -->
+
+                            <div class="dashboard-book-cover">
+
+                                <div class="dashboard-book-spine"></div>
+
+                                <div>
+
+                                    <small>
+                                        BOOK GALLERY
+                                    </small>
+
+                                    <h3>
+                                        {{ book.title }}
+                                    </h3>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Book information -->
+
+                            <div class="dashboard-book-content">
+
+                                <h3>
+                                    {{ book.title }}
+                                </h3>
+
+                                <p class="dashboard-book-description">
+                                    {{ book.description }}
+                                </p>
+
+
+                                <div class="dashboard-book-price">
+
+                                    <span>
+                                        PRICE
+                                    </span>
+
+                                    <strong>
+                                        ₹{{ book.price }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="dashboard-book-actions">
+
+                                    <a
+                                        href="{% url 'edit_book' book.id %}"
+                                        class="edit-book-btn"
+                                    >
+                                        Edit
+                                    </a>
+
+                                    <a
+                                        href="{% url 'delete_book' book.id %}"
+                                        class="delete-book-btn"
+                                    >
+                                        Delete
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="dashboard-empty">
+
+                    <div class="dashboard-empty-icon">
+                        📖
+                    </div>
+
+                    <h3>
+                        No books listed yet.
+                    </h3>
+
+                    <p>
+                        You have not added any books for sale.
+                    </p>
+
+                    <a
+                        href="{% url 'add_book' %}"
+                        class="dashboard-empty-btn"
+                    >
+                        Add Your First Book
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- =================================================
+             PURCHASE REQUESTS
+             ================================================= -->
+
+        <div class="dashboard-section requests-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <div class="section-eyebrow">
+                        SELLER ACTIVITY
+                    </div>
+
+                    <h2>
+                        Purchase Requests
+                    </h2>
+
+                </div>
+
+                <span class="section-count">
+                    {{ orders|length }} request{{ orders|length|pluralize }}
+                </span>
+
+            </div>
+
+
+            {% if orders %}
+
+                <div class="requests-list">
+
+                    {% for order in orders %}
+
+                        <div class="request-card">
+
+                            <div class="request-book">
+
+                                <div class="request-book-icon">
+                                    📕
+                                </div>
+
+                                <div>
+
+                                    <h3>
+                                        {{ order.book.title }}
+                                    </h3>
+
+                                    <p>
+                                        Requested by
+                                        <strong>
+                                            {{ order.buyer.username }}
+                                        </strong>
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="request-price">
+
+                                <span>
+                                    PRICE
+                                </span>
+
+                                <strong>
+                                    ₹{{ order.book.price }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="request-status">
+
+                                <span>
+                                    STATUS
+                                </span>
+
+                                {% if order.status == 'Pending' %}
+
+                                    <strong class="status-pending">
+                                        Pending
+                                    </strong>
+
+                                {% elif order.status == 'Approved' %}
+
+                                    <strong class="status-approved">
+                                        Approved
+                                    </strong>
+
+                                {% elif order.status == 'Rejected' %}
+
+                                    <strong class="status-rejected">
+                                        Rejected
+                                    </strong>
+
+                                {% else %}
+
+                                    <strong>
+                                        {{ order.status }}
+                                    </strong>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            {% if order.status == 'Pending' %}
+
+                                <div class="request-actions">
+
+                                    <form
+                                        method="POST"
+                                        action="{% url 'update_order_status' order.id 'Approved' %}"
+                                    >
+
+                                        {% csrf_token %}
+
+                                        <button
+                                            type="submit"
+                                            class="approve-btn"
+                                        >
+                                            Approve
+                                        </button>
+
+                                    </form>
+
+
+                                    <form
+                                        method="POST"
+                                        action="{% url 'update_order_status' order.id 'Rejected' %}"
+                                    >
+
+                                        {% csrf_token %}
+
+                                        <button
+                                            type="submit"
+                                            class="reject-btn"
+                                        >
+                                            Reject
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="dashboard-empty request-empty">
+
+                    <div class="dashboard-empty-icon">
+                        ✓
+                    </div>
+
+                    <h3>
+                        No purchase requests.
+                    </h3>
+
+                    <p>
+                        You don't have any purchase requests yet.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

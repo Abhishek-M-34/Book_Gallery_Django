@@ -1,0 +1,97 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+    Edit Book - Book Gallery
+{% endblock %}
+
+{% block content %}
+
+<section class="form-page">
+
+    <div class="container">
+
+        <div class="form-wrapper">
+
+            <!-- INTRO -->
+
+            <div class="form-intro">
+
+                <div class="form-icon">
+                    ✏️
+                </div>
+
+                <div class="form-eyebrow">
+                    BOOK GALLERY
+                </div>
+
+                <h1>
+                    Update your
+                    <span>book details.</span>
+                </h1>
+
+                <p>
+                    Make changes to your book information and
+                    save the updated details.
+                </p>
+
+            </div>
+
+
+            <!-- FORM CARD -->
+
+            <div class="form-card">
+
+                <div class="form-card-header">
+
+                    <h2>
+                        Edit Book
+                    </h2>
+
+                    <p>
+                        Update the information below.
+                    </p>
+
+                </div>
+
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="book-form">
+
+                        {{ form.as_p }}
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            class="form-submit"
+                        >
+                            Save Changes
+                            <span>→</span>
+                        </button>
+
+                        <a
+                            href="{% url 'home' %}"
+                            class="form-cancel"
+                        >
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

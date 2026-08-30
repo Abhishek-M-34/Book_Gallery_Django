@@ -1,0 +1,150 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+    Request Purchase - Book Gallery
+{% endblock %}
+
+{% block content %}
+
+<section class="purchase-request-page">
+
+    <div class="container">
+
+        <div class="purchase-request-wrapper">
+
+            <!-- INTRO -->
+
+            <div class="purchase-request-intro">
+
+                <div class="request-icon">
+                    🛒
+                </div>
+
+                <div class="request-eyebrow">
+                    BOOK GALLERY
+                </div>
+
+                <h1>
+                    One step closer
+                    <span>to your book.</span>
+                </h1>
+
+                <p>
+                    Review the book details before sending
+                    your purchase request to the seller.
+                </p>
+
+            </div>
+
+
+            <!-- REQUEST CARD -->
+
+            <div class="purchase-request-card">
+
+                <div class="request-card-heading">
+
+                    <span>
+                        PURCHASE REQUEST
+                    </span>
+
+                    <h2>
+                        {{ book.title }}
+                    </h2>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="request-description">
+
+                    <span>
+                        ABOUT THIS BOOK
+                    </span>
+
+                    <p>
+                        {{ book.description }}
+                    </p>
+
+                </div>
+
+
+                <!-- BOOK DETAILS -->
+
+                <div class="request-details">
+
+                    <div>
+
+                        <span>
+                            PRICE
+                        </span>
+
+                        <strong>
+                            ₹{{ book.price }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            SELLER
+                        </span>
+
+                        <strong>
+                            {{ book.seller.username }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIRMATION -->
+
+                <div class="request-confirmation">
+
+                    <p>
+                        Are you sure you want to request this book?
+                    </p>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="request-form-actions">
+
+                        <button
+                            type="submit"
+                            class="confirm-request-btn"
+                        >
+                            Confirm Purchase Request
+                            <span>→</span>
+                        </button>
+
+                        <a
+                            href="{% url 'book_feed' %}"
+                            class="cancel-request-btn"
+                        >
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

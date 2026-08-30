@@ -1,0 +1,166 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+    Book Gallery
+{% endblock %}
+
+{% block content %}
+
+<section class="landing-section">
+
+    <div class="container">
+
+        <div class="row align-items-center min-vh-75">
+
+            <!-- LEFT CONTENT -->
+
+            <div class="col-lg-6">
+
+                <div class="landing-badge">
+                    📚 BOOK GALLERY
+                </div>
+
+                <h1 class="landing-title">
+                    Discover Your
+                    <span>Next Great Book.</span>
+                </h1>
+
+                <p class="landing-description">
+                    Explore books shared by our community.
+                    Find something interesting to read and
+                    connect with other book lovers.
+                </p>
+
+                <div class="landing-buttons">
+
+                    <a
+                        href="{% url 'book_feed' %}"
+                        class="landing-primary-btn"
+                    >
+                        Explore Books
+                        <span>→</span>
+                    </a>
+
+                    {% if not user.is_authenticated %}
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="landing-secondary-btn"
+                    >
+                        Create Account
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT VISUAL -->
+
+            <div class="col-lg-6">
+
+                <div class="landing-visual">
+
+                    <div class="book-card book-card-back">
+
+                        <div class="book-decoration">
+                            ✦
+                        </div>
+
+                        <div>
+                            <small>BOOK</small>
+                            <h3>
+                                Stories
+                            </h3>
+                        </div>
+
+                    </div>
+
+
+                    <div class="book-card book-card-middle">
+
+                        <div class="book-decoration">
+                            ❧
+                        </div>
+
+                        <div>
+                            <small>READ</small>
+                            <h3>
+                                Explore
+                            </h3>
+                        </div>
+
+                    </div>
+
+
+                    <div class="book-card book-card-front">
+
+                        <div class="book-card-content">
+
+                            <div class="book-small-title">
+                                BOOK GALLERY
+                            </div>
+
+                            <h2>
+                                Your next
+                                <br>
+                                chapter
+                            </h2>
+
+                            <div class="book-line"></div>
+
+                            <p>
+                                Discover · Read · Share
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="visual-circle"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SIMPLE INTRODUCTION -->
+
+<section class="landing-intro">
+
+    <div class="container">
+
+        <div class="intro-content">
+
+            <div class="intro-label">
+                ABOUT BOOK GALLERY
+            </div>
+
+            <h2>
+                A simple place for
+                <span>book lovers.</span>
+            </h2>
+
+            <p>
+                Browse available books, learn more about them,
+                and become part of the Book Gallery community.
+                Create an account when you are ready to interact
+                with the books and other users.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+

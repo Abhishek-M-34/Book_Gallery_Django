@@ -1,0 +1,127 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+    Delete Book - Book Gallery
+{% endblock %}
+
+{% block content %}
+
+<section class="delete-page">
+
+    <div class="container">
+
+        <div class="delete-wrapper">
+
+            <!-- WARNING ICON -->
+
+            <div class="delete-icon">
+                !
+            </div>
+
+
+            <div class="delete-eyebrow">
+                BOOK GALLERY
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h1>
+                Delete this
+                <span>book?</span>
+            </h1>
+
+
+            <p class="delete-message">
+                You're about to permanently remove this book
+                from your listings.
+            </p>
+
+
+            <!-- BOOK -->
+
+            <div class="delete-book-card">
+
+                <div class="delete-book-cover">
+
+                    <div class="delete-book-spine"></div>
+
+                    <span>
+                        BOOK GALLERY
+                    </span>
+
+                    <h2>
+                        {{ book.title }}
+                    </h2>
+
+                </div>
+
+
+                <div class="delete-book-info">
+
+                    <div class="delete-book-label">
+                        BOOK TITLE
+                    </div>
+
+                    <h2>
+                        {{ book.title }}
+                    </h2>
+
+                    <p>
+                        {{ book.description }}
+                    </p>
+
+                    <div class="delete-warning">
+                        This action cannot be undone.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONFIRMATION -->
+
+            <div class="delete-confirmation">
+
+                <p>
+                    Are you sure you want to delete
+                    <strong>{{ book.title }}</strong>?
+                </p>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="delete-actions">
+
+                    <button
+                        type="submit"
+                        class="delete-confirm-btn"
+                    >
+                        Yes, Delete Book
+                    </button>
+
+                    <a
+                        href="{% url 'home' %}"
+                        class="delete-cancel-btn"
+                    >
+                        Keep Book
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

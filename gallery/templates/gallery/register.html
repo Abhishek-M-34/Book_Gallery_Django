@@ -1,0 +1,106 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}
+    Register - Book Gallery
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="container">
+
+        <div class="auth-wrapper">
+
+            <!-- LEFT SIDE -->
+
+            <div class="auth-intro">
+
+                <div class="auth-book-icon">
+                    📚
+                </div>
+
+                <div class="auth-eyebrow">
+                    JOIN BOOK GALLERY
+                </div>
+
+                <h1>
+                    Start your
+                    <span>reading journey.</span>
+                </h1>
+
+                <p>
+                    Create your Book Gallery account and
+                    discover a simple place to explore,
+                    share and interact with books.
+                </p>
+
+                <div class="auth-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </div>
+
+
+            <!-- REGISTER CARD -->
+
+            <div class="auth-card register-card">
+
+                <div class="auth-card-header">
+
+                    <h2>
+                        Create Account
+                    </h2>
+
+                    <p>
+                        Join Book Gallery today
+                    </p>
+
+                </div>
+
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="auth-form">
+
+                        {{ form.as_p }}
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="auth-submit"
+                    >
+                        Create Account
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+
+                <div class="auth-switch">
+
+                    <span>
+                        Already have an account?
+                    </span>
+
+                    <a href="{% url 'login' %}">
+                        Login
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
